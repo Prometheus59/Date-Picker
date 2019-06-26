@@ -1,8 +1,10 @@
-##Created for Elexicon Energy
+## Created for Elexicon Energy
 
-Selects disconnect dates and pre-populates an email template.
+#### date_picker.js --> Selects disconnect dates and pre-populates an email template.
 
-Based on the following notice timeline:
+
+
+Disconnect dates are based on the following notice timeline:
 
   Current Date - Letter Generated
   Following 3 Business Days - Mailing Period
