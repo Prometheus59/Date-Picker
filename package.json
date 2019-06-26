@@ -1,0 +1,17 @@
+{
+  "name": "date_selection",
+  "version": "1.0.0",
+  "description": "Selects disconnect dates and pre-populates an email template.",
+  "main": "index.js",
+  "dependencies": {
+    "openurl": "^1.1.1",
+    "npm": "^6.9.0",
+    "open": "^6.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
