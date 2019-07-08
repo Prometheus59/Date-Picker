@@ -1,3 +1,4 @@
+var holiday_dates = require('date-holidays');
 var generated_date = new Date();
 var mail = new Date();
 var disc1 = new Date();
@@ -7,42 +8,29 @@ var mailing_days = 0;
 var mail_offset = 0;
 
 var day1, day2, month1, month2;
+
 const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
-const holiday_strings = [
-    'February 18',
-    'April 19',
-    'April 22',
-    'May 20',
-    'July 1',
-    'August 5',
-    'September 2',
-    'October 14',
-    'December 24',
-    'December 25',
-    'December 26',
-    'December 31',
-    'January 1'
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
 ];
 
-// Map holiday dates to Date objects
-var holidays = holiday_strings.map(holiday => new Date(holiday));
+// Initialize holiday dates
+var holidays = new holiday_dates();
+holidays.init('CA','ON');
 
 // date_change: Increments day and month
 // date: Date object
-// num:number of days to increment
+// num: number of days to increment
 function date_change(date, num)
 {
     date.setDate(date.getDate() + num);
@@ -62,18 +50,11 @@ function compare_dates(date1, date2)
     }
 }
 
-function is_holiday(date)
-{
-    // Check whether date is in holidays
-    var ans = holidays.some(x => compare_dates(date, x));
-    return ans;
-}
-
 // Checks if date is a business day
 function is_bus(date)
 {
     var d = date.getDay();
-    if ((d == 0) || (d == 6) || is_holiday(date))
+    if ((d == 0) || (d == 6) || holidays.isHoliday(date))
     {
         return false;
     }
@@ -108,7 +89,7 @@ var day2 = month2 + " " + disc2.getDate() + "/" + disc2.getFullYear() % 100;
 
 //Email Templating Information
 var subject = `Disconnect Timeline Confirmation`;
-var message = `Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.%0D%0A%0D%0AThank You,%0D%0A%0D%0A- Ryan Karumanchery`;
+var message = `Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.%0D%0A%0D%0AThank You,%0D%0A%0D%0A-Ryan Karumanchery`;
 var mail_string = `mailto:avalentine@elexiconenergy.com?cc=dadams@elexiconenergy.com&subject=` + subject + `&body=` + message;
 
 // Force Launch email client
