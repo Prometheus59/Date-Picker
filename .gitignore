@@ -1,0 +1,7 @@
+node_modules/
+node.exe
+nodevars.bat
+npm
+npm.cmd
+npx
+npx.cmd

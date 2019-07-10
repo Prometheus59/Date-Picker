@@ -1,17 +1,30 @@
 {
-  "name": "date_selection",
+  "name": "elexicon-energy",
   "version": "1.0.0",
-  "description": "Selects disconnect dates and pre-populates an email template.",
-  "main": "index.js",
+  "description": "Tools created for Elexicon Energy",
+  "main": "IVR_dates.js",
   "dependencies": {
-    "openurl": "^1.1.1",
-    "npm": "^6.9.0",
-    "open": "^6.3.0"
+    "cheerio": "^1.0.0-rc.3",
+    "clipboardy": "^2.1.0",
+    "copy-to-clipboard": "^3.2.0",
+    "copy-text-to-clipboard": "^2.1.0",
+    "date-holidays": "^1.4.0",
+    "request-promise": "^4.2.4",
+    "opn": "^6.0.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prometheus59/Elexicon-Energy.git"
+  },
+  "author": "Ryan Karumanchery",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Prometheus59/Elexicon-Energy/issues"
+  },
+  "homepage": "https://github.com/Prometheus59/Elexicon-Energy#readme"
 }
