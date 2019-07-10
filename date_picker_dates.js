@@ -73,6 +73,12 @@ while (mailing_days < 3)
         //increment mailing day
         mailing_days++;
     }
+	else {
+		let x = holidays.isHoliday(mail);
+		if (x){
+			console.log("\nDates adjusted for " + x.name + "\n");
+		}
+	}
     mail_offset++;
 }
 

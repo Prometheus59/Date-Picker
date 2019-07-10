@@ -73,6 +73,12 @@ while (mailing_days < 3)
         //increment mailing day
         mailing_days++;
     }
+	else {
+		let x = holidays.isHoliday(mail);
+		if (x){
+			console.log("\nDates adjusted for " + x.name);
+		}
+	}
     mail_offset++;
 }
 
@@ -89,7 +95,8 @@ var day2 = month2 + " " + disc2.getDate() + "/" + disc2.getFullYear() % 100;
 
 //Email Templating Information
 var subject = `Disconnect Timeline Confirmation`;
-var message = `Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.%0D%0A%0D%0AThank You,%0D%0A%0D%0A-Ryan Karumanchery`;
+var message =
+	`Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.%0D%0A%0D%0AThank You,%0D%0A%0D%0A-Ryan Karumanchery`;
 var mail_string = `mailto:avalentine@elexiconenergy.com?cc=dadams@elexiconenergy.com&subject=` + subject + `&body=` + message;
 
 // Force Launch email client
