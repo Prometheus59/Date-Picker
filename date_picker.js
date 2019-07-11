@@ -1,5 +1,6 @@
 var holiday_dates = require("date-holidays");
-var generated_date = new Date();
+const nodemailer = require("nodemailer");
+
 var mail = new Date();
 var disc1 = new Date();
 var disc2 = new Date();
@@ -35,18 +36,6 @@ function date_change(date, num) {
   date.setDate(date.getDate() + num);
 }
 
-// Compares dates based on day of month and month
-function compare_dates(date1, date2) {
-  if (
-    date1.getDate() == date2.getDate() &&
-    date1.getMonth() == date2.getMonth()
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 // Checks if date is a business day
 function is_bus(date) {
   var d = date.getDay();
@@ -57,6 +46,9 @@ function is_bus(date) {
   }
 }
 
+async function main(){
+
+let x;
 // Set end date of mailing timeline
 while (mailing_days < 3) {
   date_change(mail, 1);
@@ -64,7 +56,7 @@ while (mailing_days < 3) {
     //increment mailing day
     mailing_days++;
   } else {
-    let x = holidays.isHoliday(mail);
+    x = holidays.isHoliday(mail);
     if (x) {
       console.log("\nDates adjusted for " + x.name);
     }
@@ -84,17 +76,38 @@ var day1 = month1 + " " + disc1.getDate() + "/" + (disc1.getFullYear() % 100);
 var day2 = month2 + " " + disc2.getDate() + "/" + (disc2.getFullYear() % 100);
 
 //Email Templating Information
-var subject = `Disconnect Timeline Confirmation`;
-var message = `Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.%0D%0A%0D%0AThank You,%0D%0A%0D%0A-Ryan Karumanchery`;
-var mail_string =
-  `mailto:avalentine@elexiconenergy.com?cc=dadams@elexiconenergy.com&subject=` +
-  subject +
-  `&body=` +
-  message;
+if (x) {
+  var message = `Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.
+  %0D%0AThese dates are adjusted for the ${x.name} holiday. 
+  %0D%0A%0D%0AThank You,%0D%0A%0D%0A-Ryan Karumanchery`;
+} else {
+  var message = `Good morning,%0D%0A%0D%0AI'd like to confirm the disconnect dates as ${day1} to ${day2}.
+  %0D%0A%0D%0AThank You,%0D%0A%0D%0A-Ryan Karumanchery`;
+}
 
-// Force Launch email client
-require("openurl").open(mail_string);
+var template = {
+  from: '',
+  to: '',
+  subject: 'Disconnect Timeline Confirmation',
+  text: message
+};
+
+// Set up nodemailer
+let transporter = nodemailer.createTransport({
+  host: "smtp-mail.outlook.com",
+  port:587,
+  secure:false,
+  auth: {
+    user: "email@address",
+    pass: "pass"
+  }
+});
+
+
+let info = await transporter.sendMail(template);
 
 // Print to console for verification
-// console.log(day1);
-// console.log(day2);
+console.log("Message sent: %s", info.messageId);
+}
+
+main().catch(console.error);
