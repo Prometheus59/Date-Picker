@@ -5,4 +5,4 @@ npm
 npm.cmd
 npx
 npx.cmd
-credentials
+credentials.js

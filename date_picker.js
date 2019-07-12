@@ -9,8 +9,6 @@ var disc2 = new Date();
 var mailing_days = 0;
 var mail_offset = 0;
 
-var day1, day2, month1, month2;
-
 const months = [
   "January",
   "February",
