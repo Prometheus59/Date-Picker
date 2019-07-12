@@ -1,5 +1,4 @@
 var holiday_dates = require("date-holidays");
-var generated_date = new Date();
 var mail = new Date();
 var disc1 = new Date();
 var disc2 = new Date();
@@ -33,18 +32,6 @@ holidays.init("CA", "ON");
 // num: number of days to increment
 function date_change(date, num) {
   date.setDate(date.getDate() + num);
-}
-
-// Compares dates based on day of month and month
-function compare_dates(date1, date2) {
-  if (
-    date1.getDate() == date2.getDate() &&
-    date1.getMonth() == date2.getMonth()
-  ) {
-    return true;
-  } else {
-    return false;
-  }
 }
 
 // Checks if date is a business day
@@ -94,7 +81,3 @@ var mail_string =
 
 // Force Launch email client
 require("openurl").open(mail_string);
-
-// Print to console for verification
-// console.log(day1);
-// console.log(day2);
