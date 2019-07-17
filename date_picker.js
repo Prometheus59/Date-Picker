@@ -1,6 +1,6 @@
 var holiday_dates = require("date-holidays");
 const nodemailer = require("nodemailer");
-var secure = require("./credentials.js");
+const secure = require("./credentials.js");
 
 var mail = new Date();
 var disc1 = new Date();
@@ -46,7 +46,7 @@ function is_bus(date) {
 }
 
 async function main() {
-  let x;
+  let holiday;
   // Set end date of mailing timeline
   while (mailing_days < 3) {
     date_change(mail, 1);
@@ -54,9 +54,9 @@ async function main() {
       //increment mailing day
       mailing_days++;
     } else {
-      x = holidays.isHoliday(mail);
-      if (x) {
-        console.log("\nDates adjusted for " + x.name);
+      holiday = holidays.isHoliday(mail);
+      if (holiday) {
+        console.log("\nDates adjusted for " + holiday.name);
       }
     }
     mail_offset++;
@@ -74,15 +74,15 @@ async function main() {
   var day2 = month2 + " " + disc2.getDate() + "/" + (disc2.getFullYear() % 100);
 
   //Email Templating Information
-  if (x) {
+  if (holiday) {
     var message = `Good morning,
 
   I'd like to confirm the disconnect dates as ${day1} to ${day2}.
-  These dates are adjusted for the ${x.name} holiday.
+  These dates are adjusted for the ${holiday.name} holiday.
 
   Thank You,
 
-  -Ryan Karumanchery`;
+  - Ryan Karumanchery`;
   } else {
     var message = `Good morning,
   
@@ -90,12 +90,13 @@ I'd like to confirm the disconnect dates as ${day1} to ${day2}.
 
 Thank You,
 
--Ryan Karumanchery`;
+- Ryan Karumanchery`;
   }
 
   var template = {
     from: secure.email_from,
     to: secure.email_to,
+    cc: sercure.email_cc,
     subject: "Disconnect Timeline Confirmation",
     text: message
   };
