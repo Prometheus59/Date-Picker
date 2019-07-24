@@ -83,6 +83,15 @@ async function main() {
   Thank You,
 
   - Ryan Karumanchery`;
+
+  var html_message = `Good morning,\n
+
+  I'd like to confirm the disconnect dates as ${day1} to ${day2}.\n
+  These dates are adjusted for the ${holiday.name} holiday.\n
+
+  Thank You,\n
+
+  - Ryan Karumanchery`;
   } else {
     var message = `Good morning,
   
@@ -91,14 +100,35 @@ I'd like to confirm the disconnect dates as ${day1} to ${day2}.
 Thank You,
 
 - Ryan Karumanchery`;
+
+    var html_message = `
+    <div>
+    <p>Good morning,</p>
+    <p>I'd like to confirm the disconnect dates as ${day1} to ${day2}.</p>
+    <p>Thank You,</p>
+    <p>- Ryan Karumanchery</p>
+    <img src="cid:ryansemailsignature"/>
+    </div>
+    `;
   }
 
   var template = {
     from: secure.email_from,
     to: secure.email_to,
-    cc: sercure.email_cc,
+    cc: secure.email_cc,
+    attachments: [
+      {   // file on disk as an attachment
+        filename: 'email_signature.PNG',
+        path: './Images/email_signature.PNG',
+        cid: 'ryansemailsignature'
+    }
+  ],
     subject: "Disconnect Timeline Confirmation",
-    text: message
+    text: message,
+    html: `
+    <div>
+      ${html_message}
+    </div>`.trim()
   };
 
   // Set up nodemailer
