@@ -84,14 +84,16 @@ async function main() {
 
   - Ryan Karumanchery`;
 
-  var html_message = `Good morning,\n
-
-  I'd like to confirm the disconnect dates as ${day1} to ${day2}.\n
-  These dates are adjusted for the ${holiday.name} holiday.\n
-
-  Thank You,\n
-
-  - Ryan Karumanchery`;
+    var html_message = `
+  <div>
+  <p>Good morning,</p>
+  <p>I'd like to confirm the disconnect dates as ${day1} to ${day2}.</p>
+  <p>These dates are adjusted for the ${holiday.name} holiday.</p>
+  <p>Thank You,</p>
+  <p>- Ryan Karumanchery</p>
+  <img src="cid:ryansemailsignature"/>
+  </div>
+  `;
   } else {
     var message = `Good morning,
   
@@ -117,12 +119,13 @@ Thank You,
     to: secure.email_to,
     cc: secure.email_cc,
     attachments: [
-      {   // file on disk as an attachment
-        filename: 'email_signature.PNG',
-        path: './Images/email_signature.PNG',
-        cid: 'ryansemailsignature'
-    }
-  ],
+      {
+        // file on disk as an attachment
+        filename: "email_signature.PNG",
+        path: "./Images/email_signature.PNG",
+        cid: "ryansemailsignature"
+      }
+    ],
     subject: "Disconnect Timeline Confirmation",
     text: message,
     html: `
